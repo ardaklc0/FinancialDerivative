@@ -31,7 +31,7 @@ public class Role {
         return role;
     }
 
-    public void setUserRolName(String user_role_name) {
+    public void setUserRoleName(String user_role_name) {
         this.role = user_role_name;
     }
 
