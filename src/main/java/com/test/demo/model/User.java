@@ -18,13 +18,13 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
                joinColumns = @JoinColumn(name = "user_id"),
                inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
-    public User(String user_password, String user_name, List<Role> user_roles){
+    public User(String user_name, String user_password, List<Role> user_roles){
         this.name = user_name;
         this.password = user_password;
         this.roles = user_roles;
