@@ -15,11 +15,13 @@ public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public void save(CreateNewUserRequest user) {
-        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
+    public void save(CreateNewUserRequest user){
         User newUser = new User();
-        newUser.setUserName(user.getUserName());
-        newUser.setUserPassword(user.getUserPassword());
+        newUser.setUserName(user.getName());
+        newUser.setUserPassword(passwordEncoder.encode(user.getPassword()));
         repository.save(newUser);
+    }
+    public User findByName(String name){
+        return repository.findByName(name);
     }
 }
