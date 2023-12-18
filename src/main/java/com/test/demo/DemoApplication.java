@@ -18,18 +18,5 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner demo(RoleRepository roleRepository, UserRepository userRepository) {
-		return (args) -> {
-			roleRepository.save(new Role("ROLE_ADMIN"));
-			List<Role> roles = roleRepository.findAll();
-			userRepository.save(new User("Jack", "Bauer", roles));
-		};
-	}
-
-	//q: how to bcrypt password?
-	//a: https://www.baeldung.com/spring-security-registration-password-encoding-bcrypt
-
-
 }
 

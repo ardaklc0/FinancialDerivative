@@ -6,34 +6,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 @Controller
 public class HomeController {
     @Autowired
     private UserService userService;
-
-    @GetMapping("/login")
-    public String login(){
+    @RequestMapping("/login")
+    public String login(WebRequest request, Model model){
+        User user = userService.findByName(request.getParameter("name"));
+        model.addAttribute("user", user);
         return "login";
     }
-
-    @GetMapping("/login-error")
+    @RequestMapping("/login-error")
     public String loginError(Model model) {
         return "login-error";
     }
-
-    @GetMapping("/home")
-    public String home(Authentication authentication, Model model){
-        User user = (User) authentication.getPrincipal();
-        model.addAttribute("user", user);
-        return "home";
+    @RequestMapping("/index")
+    public String home(Model model){
+        return "index";
+        //TODO 1: Role for the user should be added!
     }
-
-    @GetMapping("/register")
-    public String register(CreateNewUserRequest user){
+    @RequestMapping("/register")
+    public String showRegisterForm(Model model){
+        model.addAttribute("user", new CreateNewUserRequest());
+        return "register_form";
+    }
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String submitForm(@ModelAttribute("user") CreateNewUserRequest user){
         userService.save(user);
-        return "redirect:/login";
+        return "register_success";
     }
 }

@@ -2,20 +2,19 @@ package com.test.demo.dto.request.user;
 
 public class CreateNewUserRequest {
     private String name;
-    // TODO: Add password validation. There is a bug "rawPassword cannot be null"
     private String password;
 
-    public String getUserPassword() {
+    public String getPassword() {
         return password;
     }
-    public void setUserPassword(String user_password) {
+    public void setPassword(String user_password) {
         this.password = user_password;
     }
-    public String getUserName() {
+    public String getName() {
         return name;
     }
 
-    public void setUserName(String user_name) {
+    public void setName(String user_name) {
         this.name = user_name;
     }
 }
