@@ -72,5 +72,4 @@ public class User {
                         "\nuser_role=" + roles +
                         "}\n";
     }
-
 }
