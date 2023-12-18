@@ -1,0 +1,15 @@
+#register-card{
+    width: 36rem !important;
+    height: 18rem !important;
+}
+.inputfield{
+    width: 100% !important;
+    border-radius: 20px !important;
+}
+.card{
+    border-radius: 20px !important;
+}
+.btn{
+    width: 25% !important;
+    border-radius: 20px !important;
+}
