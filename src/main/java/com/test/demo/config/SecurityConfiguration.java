@@ -37,7 +37,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(authConfig -> {
                 authConfig.requestMatchers(HttpMethod.GET, "/index", "/register", "/login", "/error", "/login-error", "/logout", "/css/**").permitAll();
                 authConfig.requestMatchers(HttpMethod.POST, "/save").permitAll();
-                authConfig.requestMatchers(HttpMethod.GET, "/user").hasRole("USER");
+                authConfig.requestMatchers(HttpMethod.GET, "/user").hasAnyRole("USER", "ADMIN");
                 authConfig.requestMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN");
             })
             .formLogin(login -> {
