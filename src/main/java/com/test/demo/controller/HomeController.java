@@ -26,7 +26,6 @@ public class HomeController {
     @RequestMapping("/index")
     public String home(Model model){
         return "index";
-        //TODO 1: Role for the user should be added!
     }
     @RequestMapping("/register")
     public String showRegisterForm(Model model){
@@ -37,5 +36,17 @@ public class HomeController {
     public String submitForm(@ModelAttribute("user") CreateNewUserRequest user){
         userService.save(user);
         return "register_success";
+    }
+    @RequestMapping("/user")
+    public String user(Model model, Authentication authentication){
+        model.addAttribute("user", authentication.getPrincipal());
+        return "user";
+    }
+    //TODO 2: Fix css in the forms.
+
+    @RequestMapping("/admin")
+    public String admin(Model model, Authentication authentication){
+        model.addAttribute("admin", authentication.getPrincipal());
+        return "admin";
     }
 }

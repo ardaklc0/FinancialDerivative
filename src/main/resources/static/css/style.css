@@ -1,0 +1,28 @@
+header, footer {
+    background-color: #e6142f;
+    color: white;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+}
+header {
+    top: 0;
+}
+footer {
+    bottom: 0;
+    padding: 10px;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 40px; /* Adjust padding top to push main content below the fixed header */
+    background-color: #082f38;
+}
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
