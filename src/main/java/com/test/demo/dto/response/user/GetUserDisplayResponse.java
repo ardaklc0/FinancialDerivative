@@ -2,21 +2,21 @@ package com.test.demo.dto.response.user;
 
 public class GetUserDisplayResponse {
     private Long id;
-    private String name;
+    private String username;
 
-    public String getUserName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String user_name) {
-        this.name = user_name;
+    public void setUsername(String user_name) {
+        this.username = user_name;
     }
 
-    public Long getUserId() {
+    public Long getId() {
         return id;
     }
 
-    public void setUserId(Long user_id) {
+    public void setId(Long user_id) {
         this.id = user_id;
     }
 }
