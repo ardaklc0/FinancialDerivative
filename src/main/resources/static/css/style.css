@@ -1,5 +1,5 @@
 header, footer {
-    background-color: #e6142f;
+    background-color: #003251;
     color: white;
     width: 100%;
     position: fixed;
@@ -18,7 +18,7 @@ body {
     min-height: 100vh;
     margin: 0;
     padding-top: 40px; /* Adjust padding top to push main content below the fixed header */
-    background-color: #082f38;
+    background-color: #fffffa;
 }
 main {
     flex: 1;
