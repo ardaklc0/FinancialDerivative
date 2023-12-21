@@ -23,9 +23,13 @@ public class UserService {
     private RoleRepository roleRepository;
     public void save(CreateNewUserRequest user){
         User newUser = new User();
-        roleRepository.save(new Role("ROLE_USER"));
+        Role userRole = roleRepository.findByRole("ROLE_USER");
+        if (userRole == null) {
+            userRole = new Role("ROLE_USER");
+            roleRepository.save(userRole);
+        }
         List<Role> roles = new ArrayList<>();
-        roles.add(roleRepository.findByRole("ROLE_USER"));
+        roles.add(userRole);
         newUser.setUsername(user.getUsername());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         newUser.setRole(roles);

@@ -16,9 +16,7 @@ public class HomeController {
     @Autowired
     private UserService userService;
     @RequestMapping("/login")
-    public String login(WebRequest request, Model model){
-        User user = userService.findByUsername(request.getParameter("name"));
-        model.addAttribute("user", user);
+    public String login(){
         return "login";
     }
     @RequestMapping("/login-error")
