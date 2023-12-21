@@ -4,16 +4,16 @@ public class UpdateExistingRoleRequest {
     private String role;
     private Long id;
 
-    public String getRoleName() {
+    public String getRole() {
         return role;
     }
-    public Long getRoleId() {
+    public Long getId() {
         return id;
     }
-    public void setRoleName(String role) {
+    public void setRole(String role) {
         this.role = role;
     }
-    public void setRoleId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

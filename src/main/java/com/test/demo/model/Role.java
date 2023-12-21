@@ -19,19 +19,19 @@ public class Role {
 
     public Role(){}
 
-    public Long getUserRoleId() {
+    public Long getId() {
         return id;
     }
 
-    public void setUserRoleId(Long user_role_id) {
+    public void setId(Long user_role_id) {
         this.id = user_role_id;
     }
 
-    public String getUserRoleName() {
+    public String getRole() {
         return role;
     }
 
-    public void setUserRoleName(String user_role_name) {
+    public void setRole(String user_role_name) {
         this.role = user_role_name;
     }
 
