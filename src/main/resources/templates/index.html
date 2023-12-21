@@ -15,6 +15,9 @@
                 <h2 style="color:#003251;">Home Page!</h2>
                 <div th:if="${user != null}">
                     <p th:text="'Hello ' + ${user.username}"></p>
+                    <form th:action="@{/logout}" method="post">
+                        <button class="btn btn-danger" type="submit">Log out</button>
+                    </form>
                 </div>
                 <div th:unless="${user != null}">
                     <p>User information not available.</p>
