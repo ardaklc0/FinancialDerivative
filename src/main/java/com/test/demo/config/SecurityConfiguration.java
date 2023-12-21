@@ -50,7 +50,7 @@ public class SecurityConfiguration {
             })
             .logout(logout -> {
                 logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
-                logout.logoutSuccessUrl("/");
+                logout.logoutSuccessUrl("/login");
                 logout.deleteCookies("JSESSIONID");
                 logout.invalidateHttpSession(true);
             });

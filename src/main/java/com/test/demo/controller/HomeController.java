@@ -35,8 +35,13 @@ public class HomeController {
         return "register_form";
     }
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String submitForm(@ModelAttribute("user") CreateNewUserRequest user){
-        userService.save(user);
-        return "register_success";
+    public String submitForm(@ModelAttribute("user") CreateNewUserRequest user, Model model){
+        if (userService.findByUsername(user.getUsername()) != null){
+            model.addAttribute("user", userService.findByUsername(user.getUsername()));
+            return "register_failure";
+        } else {
+            userService.save(user);
+            return "register_success";
+        }
     }
 }
