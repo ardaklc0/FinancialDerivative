@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<head>
+    <meta charset="UTF-8">
+    <title>Option Update Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h2 class="p-1">FinDer</h2>
+</header>
+<div class="container d-flex justify-content-center align-items-center flex-grow-1">
+    <div class="card text-center p-3" style="background-color:#fffefc;" id="register-card">
+        <h2 class="card-title p-3">Update Option</h2>
+        <form action="#" th:action="@{/option/update-option/{id}(id=${option.id})}" th:object="${option}" method="post">
+            <div class="input-group p-2">
+                <label for="isCall" class="p-1">Is Call</label>
+                <input class="input-group-text inputfield" type="text" id="isCall" name="isCall" th:field="*{isCall}" autofocus="autofocus"> <br>
+                <label for="strikePrice" class="p-1">Strike Price</label>
+                <input class="input-group-text inputfield" type="text" id="strikePrice" name="strikePrice" th:field="*{strikePrice}" autofocus="autofocus"> <br>
+                <label for="riskFreeInterestValue" class="p-1">Risk Free Interest Value</label>
+                <input class="input-group-text inputfield" type="text" id="riskFreeInterestValue" name="riskFreeInterestValue" th:field="*{riskFreeInterestValue}" autofocus="autofocus"> <br>
+                <label for="upRate" class="p-1">Up Rate</label>
+                <input class="input-group-text inputfield" type="text" id="upRate" name="upRate" th:field="*{upRate}" autofocus="autofocus"> <br>
+                <label for="downRate" class="p-1">Down Rate</label>
+                <input class="input-group-text inputfield" type="text" id="downRate" name="downRate" th:field="*{downRate}" autofocus="autofocus"> <br>
+                <label for="exerciseTime" class="p-1">Exercise Time</label>
+                <input class="input-group-text inputfield" type="text" id="exerciseTime" name="exerciseTime" th:field="*{exerciseTime}" autofocus="autofocus"> <br>
+                <label for="stockPrice" class="p-1">Stock Price</label>
+                <input class="input-group-text inputfield" type="text" id="stockPrice" name="stockPrice" th:field="*{stockPrice}" autofocus="autofocus"> <br>
+                <label for="bondPrice" class="p-1">Bond Price</label>
+                <input class="input-group-text inputfield" type="text" id="bondPrice" name="bondPrice" th:field="*{bondPrice}" autofocus="autofocus"> <br>
+                <label for="probabilityOfUp" class="p-1">Probability Of Up</label>
+                <input class="input-group-text inputfield" type="text" id="probabilityOfUp" name="probabilityOfUp" th:field="*{probabilityOfUp}" autofocus="autofocus"> <br>
+            </div>
+            <button class="btn btn-danger" type="submit">Update</button>
+        </form>
+    </div>
+</div>
+<footer>
+    Arda Kilic 2023
+</footer>
+</body>
+</html>
