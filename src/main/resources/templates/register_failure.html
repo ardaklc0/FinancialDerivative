@@ -11,9 +11,13 @@
     <h2 class="p-1">FinDer</h2>
 </header>
 <main>
-    <h2 style="color:#003251;">Registration is not successful!</h2> <br>
-    <h3 th:text="${user.username}"></h3>
-    <h3> is already taken!</h3>
+    <div class="container d-flex justify-content-center align-items-center flex-grow-1">
+        <div class="card text-center p-3" style="background-color:#fffefc;" id="login-card">
+            <h2 class="card-title p-3">Registration Error</h2>
+            <h3 style="color:#003251;">Registration is not successful!</h3>
+            <h4 th:text="|${user.username} is already taken!|"></h4>
+        </div>
+    </div>
 </main>
 <footer>
     Arda Kilic 2023

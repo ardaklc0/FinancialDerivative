@@ -36,13 +36,11 @@ public class UserController {
         model.addAttribute("user", newUser);
         return "index";
     }
-
-    @GetMapping("/delete-user/{id}")
-    public String deleteUser(@PathVariable("id") long id, Model model) {
+    @PostMapping("/delete-user/{id}")
+    public String deleteUser(@PathVariable("id") long id) {
         userService.delete(id);
-        return "index";
+        return "login";
     }
-
     @GetMapping("/user-list")
     public String userList(Model model){
         model.addAttribute("users", userService.findAll());

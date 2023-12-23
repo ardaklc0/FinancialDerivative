@@ -21,6 +21,7 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Transactional
     public void save(CreateNewUserRequest user){
         User newUser = new User();
         Role userRole = roleRepository.findByRole("ROLE_USER");
