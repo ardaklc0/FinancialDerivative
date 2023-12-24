@@ -27,6 +27,15 @@ public class OptionController {
     @PostMapping("/create-option")
     public String createOption(@ModelAttribute("option") CreateNewOptionRequest option, Model model){
         optionService.save(option);
+        model.addAttribute("stockUpValue", optionService.calculateUpValue(option.getStockPrice(), option.getUpRate()));
+        model.addAttribute("stockDownValue", optionService.calculateDownValue(option.getStockPrice(), option.getDownRate()));
+        model.addAttribute("bondFutureValue", optionService.calculateFutureBond(option.getBondPrice(), option.getRiskFreeInterestValue()));
+        model.addAttribute("upPortfolioValue", optionService.calculateUpPortfolio(option.getStockPrice(), option.getBondPrice(), option.getUpRate(), option.getRiskFreeInterestValue()));
+        model.addAttribute("downPortfolioValue", optionService.calculateDownPortfolio(option.getStockPrice(), option.getBondPrice(), option.getDownRate(), option.getRiskFreeInterestValue()));
+        model.addAttribute("layOff", optionService.calculateLayOff(option.getStrikePrice(), option.getStockPrice(), option.getUpRate()));
+        model.addAttribute("stockShare", optionService.calculateStockShare(option.getStockPrice(), option.getUpRate(), option.getDownRate(), option.getStrikePrice()));
+        model.addAttribute("bondShare", optionService.calculateBondShare(option.getBondPrice(), option.getUpRate(), option.getDownRate(), option.getStrikePrice(), option.getBondPrice(), option.getRiskFreeInterestValue()));
+        model.addAttribute("replicatingPortfolioValue", optionService.replicateThePortfolio(option.getStockPrice(), option.getUpRate(), option.getDownRate(), option.getStrikePrice(), option.getBondPrice(), option.getRiskFreeInterestValue()));
         return "option_success";
     }
 
@@ -45,6 +54,15 @@ public class OptionController {
         optionService.update(option, id);
         Option newOption = optionService.findById(id);
         model.addAttribute("option", newOption);
+        model.addAttribute("stockUpValue", optionService.calculateUpValue(newOption.getStockPrice(), newOption.getUpRate()));
+        model.addAttribute("stockDownValue", optionService.calculateDownValue(newOption.getStockPrice(), newOption.getDownRate()));
+        model.addAttribute("bondFutureValue", optionService.calculateFutureBond(newOption.getBondPrice(), newOption.getRiskFreeInterestValue()));
+        model.addAttribute("upPortfolioValue", optionService.calculateUpPortfolio(newOption.getStockPrice(), newOption.getBondPrice(), newOption.getUpRate(), newOption.getRiskFreeInterestValue()));
+        model.addAttribute("downPortfolioValue", optionService.calculateDownPortfolio(newOption.getStockPrice(), newOption.getBondPrice(), newOption.getDownRate(), newOption.getRiskFreeInterestValue()));
+        model.addAttribute("layOff", optionService.calculateLayOff(newOption.getStrikePrice(), newOption.getStockPrice(), newOption.getUpRate()));
+        model.addAttribute("stockShare", optionService.calculateStockShare(newOption.getStockPrice(), newOption.getUpRate(), newOption.getDownRate(), newOption.getStrikePrice()));
+        model.addAttribute("bondShare", optionService.calculateBondShare(newOption.getBondPrice(), newOption.getUpRate(), newOption.getDownRate(), newOption.getStrikePrice(), newOption.getBondPrice(), newOption.getRiskFreeInterestValue()));
+        model.addAttribute("replicatingPortfolioValue", optionService.replicateThePortfolio(newOption.getStockPrice(), newOption.getUpRate(), newOption.getDownRate(), newOption.getStrikePrice(), newOption.getBondPrice(), newOption.getRiskFreeInterestValue()));
         return "option_success";
     }
 

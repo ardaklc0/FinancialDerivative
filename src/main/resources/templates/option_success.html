@@ -6,45 +6,93 @@
     <title>Create Option Page</title>
     <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
-<body>
-<header>
-    <h2 class="p-1">FinDer</h2>
-</header>
-<div class="container d-flex justify-content-center align-items-center flex-grow-1">
-    <div class="card text-center p-3" style="background-color:#fffefc;" id="login-card">
-        <h2 class="card-title p-3">Created Option</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Is Call</th>
-                    <th scope="col">Strike Price</th>
-                    <th scope="col">Risk Free Interest Value</th>
-                    <th scope="col">Up Rate</th>
-                    <th scope="col">Down Rate</th>
-                    <th scope="col">Exercise Time</th>
-                    <th scope="col">Stock Price</th>
-                    <th scope="col">Bond Price</th>
-                    <th scope="col">Probability of Up</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td th:text="${option.isCall}"></td>
-                    <td th:text="${option.strikePrice}"></td>
-                    <td th:text="${option.riskFreeInterestValue}"></td>
-                    <td th:text="${option.upRate}"></td>
-                    <td th:text="${option.downRate}"></td>
-                    <td th:text="${option.exerciseTime}"></td>
-                    <td th:text="${option.stockPrice}"></td>
-                    <td th:text="${option.bondPrice}"></td>
-                    <td th:text="${option.probabilityOfUp}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<footer>
-    Arda Kilic 2023
-</footer>
-</body>
+    <body>
+        <header>
+            <h2 class="p-1">FinDer</h2>
+        </header>
+        <div class="container d-flex justify-content-center align-items-center flex-grow-1">
+            <div class="card text-center p-3" style="background-color:#fffefc;" id="login-card">
+                <h2 class="card-title p-3">Created Option</h2>
+                <table class="table table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">Is Call</th>
+                            <th scope="col">Strike Price</th>
+                            <th scope="col">Risk Free Interest Value</th>
+                            <th scope="col">Up Rate</th>
+                            <th scope="col">Down Rate</th>
+                            <th scope="col">Exercise Time</th>
+                            <th scope="col">Stock Price</th>
+                            <th scope="col">Bond Price</th>
+                            <th scope="col">Probability of Up</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td th:text="${option.isCall}"></td>
+                            <td th:text="${option.strikePrice}"></td>
+                            <td th:text="${option.riskFreeInterestValue}"></td>
+                            <td th:text="${option.upRate}"></td>
+                            <td th:text="${option.downRate}"></td>
+                            <td th:text="${option.exerciseTime}"></td>
+                            <td th:text="${option.stockPrice}"></td>
+                            <td th:text="${option.bondPrice}"></td>
+                            <td th:text="${option.probabilityOfUp}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="piecewiseFunction"
+                    th:text="|
+                    \(\large S(0) = \begin{cases}
+                    S^u = ${stockUpValue} & \text{if } p \\
+                    S^d = ${stockDownValue}& \text{if } 1-p
+                    \end{cases} \)
+                    \(\large
+                    \longrightarrow
+                    \)
+                    \(\large V(0) = \begin{cases}
+                    x\cdot S^u + y \cdot A(1) = x\cdot ${stockUpValue} + y \cdot ${bondFutureValue} & \text{if } p \\
+                    x\cdot S^d + y \cdot A(1) = x\cdot ${stockDownValue} + y \cdot ${bondFutureValue} & \text{if } 1-p
+                    \end{cases} \)
+                    |">
+
+                </div> <br>
+                <div id="replicatingPortfolieEquations"
+                    th:text="|
+                    \(\large \begin{cases}
+                    x\cdot ${stockUpValue} + y \cdot ${bondFutureValue} = S^u - K = ${layOff} \\
+                    x\cdot ${stockDownValue} + y \cdot ${bondFutureValue} = 0
+                    \end{cases}\)
+                    |">
+                </div> <br>
+                <div id="valuesOfVariables"
+                    th:text="|
+                    \(\large
+                    x = \dfrac{S^u-K}{S^u-S^d} = ${stockShare}, y = -\dfrac{S^u-K}{S^u-S^d}\cdot \dfrac{S^d}{A(1)} = ${bondShare}
+                    \)
+                    |">
+                </div> <br>
+                <div id="resultingPortfolio"
+                    th:text="|
+                    \(\large
+                    C(0) = V(0) = x\cdot S(0) + y \cdot A(0) = ${replicatingPortfolioValue}
+                    \)
+                    |">
+                </div> <br>
+                <div id="valueOfOption"
+                    th:text="|
+                    \(\large
+                    C(0) = ${replicatingPortfolioValue}
+                    \)
+                    |">
+
+                </div>
+            </div>
+        </div>
+        <footer>
+            Arda Kilic 2023
+        </footer>
+    </body>
 </html>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
