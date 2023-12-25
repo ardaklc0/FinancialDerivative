@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class OptionService{
+public class OptionService {
     @Autowired
     private OptionRepository optionRepository;
     @Transactional
