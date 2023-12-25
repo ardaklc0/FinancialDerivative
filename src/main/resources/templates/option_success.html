@@ -44,15 +44,15 @@
                 <div id="piecewiseFunction"
                     th:text="|
                     \(\large S(0) = \begin{cases}
-                    S^u = ${stockUpValue} & \text{if } p \\
-                    S^d = ${stockDownValue}& \text{if } 1-p
+                    S^u = ${optionValues.get('stockUpValue')} & \text{if } p \\
+                    S^d = ${optionValues.get('stockDownValue')}& \text{if } 1-p
                     \end{cases} \)
                     \(\large
                     \longrightarrow
                     \)
                     \(\large V(0) = \begin{cases}
-                    x\cdot S^u + y \cdot A(1) = x\cdot ${stockUpValue} + y \cdot ${bondFutureValue} & \text{if } p \\
-                    x\cdot S^d + y \cdot A(1) = x\cdot ${stockDownValue} + y \cdot ${bondFutureValue} & \text{if } 1-p
+                    x\cdot S^u + y \cdot A(1) = x\cdot ${optionValues.get('stockUpValue')} + y \cdot ${optionValues.get('bondFutureValue')} & \text{if } p \\
+                    x\cdot S^d + y \cdot A(1) = x\cdot ${optionValues.get('stockDownValue')} + y \cdot ${optionValues.get('bondFutureValue')} & \text{if } 1-p
                     \end{cases} \)
                     |">
 
@@ -60,29 +60,29 @@
                 <div id="replicatingPortfolieEquations"
                     th:text="|
                     \(\large \begin{cases}
-                    x\cdot ${stockUpValue} + y \cdot ${bondFutureValue} = S^u - K = ${layOff} \\
-                    x\cdot ${stockDownValue} + y \cdot ${bondFutureValue} = 0
+                    x\cdot ${optionValues.get('stockUpValue')} + y \cdot ${optionValues.get('bondFutureValue')} = S^u - K = ${optionValues.get('layOff')} \\
+                    x\cdot ${optionValues.get('stockDownValue')} + y \cdot ${optionValues.get('bondFutureValue')} = 0
                     \end{cases}\)
                     |">
                 </div> <br>
                 <div id="valuesOfVariables"
                     th:text="|
                     \(\large
-                    x = \dfrac{S^u-K}{S^u-S^d} = ${stockShare}, y = -\dfrac{S^u-K}{S^u-S^d}\cdot \dfrac{S^d}{A(1)} = ${bondShare}
+                    x = \dfrac{S^u-K}{S^u-S^d} = ${optionValues.get('stockShare')}, y = -\dfrac{S^u-K}{S^u-S^d}\cdot \dfrac{S^d}{A(1)} = ${optionValues.get('bondShare')}
                     \)
                     |">
                 </div> <br>
                 <div id="resultingPortfolio"
                     th:text="|
                     \(\large
-                    C(0) = V(0) = x\cdot S(0) + y \cdot A(0) = ${replicatingPortfolioValue}
+                    C(0) = V(0) = x\cdot S(0) + y \cdot A(0) = ${optionValues.get('replicatingPortfolioValue')}
                     \)
                     |">
                 </div> <br>
                 <div id="valueOfOption"
                     th:text="|
                     \(\large
-                    C(0) = ${replicatingPortfolioValue}
+                    C(0) = ${optionValues.get('replicatingPortfolioValue')}
                     \)
                     |">
 
