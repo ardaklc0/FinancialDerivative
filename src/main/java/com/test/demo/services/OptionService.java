@@ -14,7 +14,7 @@ public class OptionService{
     @Autowired
     private OptionRepository optionRepository;
     @Transactional
-    public void save(CreateNewOptionRequest option){
+    public Option save(CreateNewOptionRequest option){
         Option newOption = new Option();
         newOption.setIsCall(option.getIsCall());
         newOption.setStrikePrice(option.getStrikePrice());
@@ -25,7 +25,7 @@ public class OptionService{
         newOption.setStockPrice(option.getStockPrice());
         newOption.setBondPrice(option.getBondPrice());
         newOption.setProbabilityOfUp(option.getProbabilityOfUp());
-        optionRepository.save(newOption);
+        return optionRepository.save(newOption);
     }
     @Transactional
     public void update(UpdateExistingOptionRequest request, Long id){
@@ -85,7 +85,6 @@ public class OptionService{
         long stockDownPrice = calculateDownValue(stockPrice, downRate);
         return -(stockShare * ((double) stockDownPrice / futureBond));
     }
-    //TODO 01: Bug Fix
     public double replicateThePortfolio(long stockPrice, double upRate, double downRate, long StrikePrice, long bondPrice, double riskFreeInterestValue){
         double stockShare = calculateStockShare(stockPrice, upRate, downRate, StrikePrice);
         double bondShare = calculateBondShare(stockPrice, upRate, downRate, StrikePrice, bondPrice, riskFreeInterestValue);
