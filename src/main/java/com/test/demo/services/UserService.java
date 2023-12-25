@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+//TODO 01: Create an interface IService<T>
 @Service
 public class UserService {
     @Autowired
@@ -22,7 +22,7 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
     @Transactional
-    public void save(CreateNewUserRequest user){
+    public User save(CreateNewUserRequest user){
         User newUser = new User();
         Role userRole = roleRepository.findByRole("ROLE_USER");
         if (userRole == null) {
@@ -34,7 +34,7 @@ public class UserService {
         newUser.setUsername(user.getUsername());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
         newUser.setRole(roles);
-        userRepository.save(newUser);
+        return userRepository.save(newUser);
     }
     @Transactional
     public void update(UpdateExistingUserRequest request, Long id) {
