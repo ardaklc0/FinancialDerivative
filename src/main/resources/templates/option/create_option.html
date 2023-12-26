@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Create Option Page</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h2 class="p-1">FinDer</h2>
+</header>
+<div class="container d-flex justify-content-center align-items-center flex-grow-1">
+    <div class="card text-center p-3" style="background-color:#fffefc;" id="option-card">
+        <h2 class="card-title p-3">Create an Option</h2>
+        <form th:action="@{/option/create-option}" method="post">
+            <input class="input-group-text inputfield" type="text" id="isCall" name="isCall" autofocus="autofocus" placeholder="Put or Call"> <br>
+            <input class="input-group-text inputfield" type="text" id="strikePrice" name="strikePrice" autofocus="autofocus" placeholder="Strike Price: K"> <br>
+            <input class="input-group-text inputfield" type="text" id="riskFreeInterestValue" name="riskFreeInterestValue" autofocus="autofocus" placeholder="Risk Free Interest Value: r"> <br>
+            <input class="input-group-text inputfield" type="text" id="upRate" name="upRate" autofocus="autofocus" placeholder="Up Rate: u"> <br>
+            <input class="input-group-text inputfield" type="text" id="downRate" name="downRate" autofocus="autofocus" placeholder="Down Rate: d"> <br>
+            <input class="input-group-text inputfield" type="text" id="exerciseTime" name="exerciseTime" autofocus="autofocus" placeholder="Exercise Time: T"> <br>
+            <input class="input-group-text inputfield" type="text" id="stockPrice" name="stockPrice" autofocus="autofocus" placeholder="Stock Price: S(0)"> <br>
+            <input class="input-group-text inputfield" type="text" id="bondPrice" name="bondPrice" autofocus="autofocus" placeholder="Bond Price: A(0)"> <br>
+            <input class="input-group-text inputfield" type="text" id="probabilityOfUp" name="probabilityOfUp" autofocus="autofocus" placeholder="Probability Of Up: p"> <br>
+            <button class="btn btn-danger" type="submit">Create</button>
+        </form>
+    </div>
+</div>
+<footer>
+    Arda Kilic 2023
+</footer>
+</body>
+</html>

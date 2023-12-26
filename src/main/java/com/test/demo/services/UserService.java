@@ -12,9 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-//TODO 01: Create an interface IService<T>
 @Service
-public class UserService {
+public class UserService implements IService<User, CreateNewUserRequest, UpdateExistingUserRequest> {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired

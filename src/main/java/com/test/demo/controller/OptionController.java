@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.test.demo.services.OptionService;
-
 import java.util.Map;
 
 @Controller
@@ -21,12 +20,12 @@ public class OptionController {
     @GetMapping("/option-home")
     public String option(Model model, Authentication authentication){
         model.addAttribute("user", authentication.getPrincipal());
-        return "option";
+        return "option/option";
     }
     @GetMapping("/create-option")
     public String showCreateOptionForm(Model model){
         model.addAttribute("option", new CreateNewOptionRequest());
-        return "create_option";
+        return "option/create_option";
     }
     @PostMapping("/create-option")
     public String createOption(@ModelAttribute("option") CreateNewOptionRequest option, Model model){
@@ -34,19 +33,19 @@ public class OptionController {
         OptionModel optionModel = new OptionModel(newOption, optionService);
         Map<String, Object> optionValues = optionModel.calculateAllValues();
         model.addAttribute("optionValues", optionValues);
-        return "option_success";
+        return "option/option_success";
     }
     @GetMapping("/update-option/{id}")
     public String showUpdateOptionForm(@PathVariable("id") long id, Model model){
         Option option = optionService.findById(id);
         model.addAttribute("option", option);
-        return "update_option";
+        return "option/update_option";
     }
     @PostMapping("/update-option/{id}")
     public String updateOption(@PathVariable("id") long id, UpdateExistingOptionRequest option, BindingResult result, Model model){
         if (result.hasErrors()) {
             option.setId(id);
-            return "update_option";
+            return "option/update_option";
         }
         optionService.update(option, id);
         Option newOption = optionService.findById(id);
@@ -54,6 +53,6 @@ public class OptionController {
         OptionModel optionModel = new OptionModel(newOption, optionService);
         Map<String, Object> optionValues = optionModel.calculateAllValues();
         model.addAttribute("optionValues", optionValues);
-        return "option_success";
+        return "option/option_success";
     }
 }
