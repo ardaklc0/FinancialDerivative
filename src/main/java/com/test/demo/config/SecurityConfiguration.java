@@ -36,13 +36,9 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(authConfig -> {
                 authConfig.requestMatchers(HttpMethod.GET, "/index", "/register", "/login", "/error", "/login-error", "/logout", "/css/**").permitAll();
                 authConfig.requestMatchers(HttpMethod.POST,"/save").permitAll();
-                authConfig.requestMatchers(HttpMethod.GET, "/user/**").hasAnyRole("USER", "ADMIN");
-                authConfig.requestMatchers(HttpMethod.GET, "/role/**").hasAnyRole("USER", "ADMIN");
-                authConfig.requestMatchers(HttpMethod.GET, "/option/**").hasAnyRole("USER", "ADMIN");
+                authConfig.requestMatchers(HttpMethod.GET, "/user/**", "/role/**", "/option/**", "/risk-neutral/**").hasAnyRole("USER", "ADMIN");
+                authConfig.requestMatchers(HttpMethod.POST, "/user/**", "/role/**", "/option/**", "/risk-neutral/**").hasAnyRole("USER", "ADMIN");
                 authConfig.requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN");
-                authConfig.requestMatchers(HttpMethod.POST, "/user/**").hasAnyRole("USER", "ADMIN");
-                authConfig.requestMatchers(HttpMethod.POST, "/role/**").hasAnyRole("USER", "ADMIN");
-                authConfig.requestMatchers(HttpMethod.POST, "/option/**").hasAnyRole("USER", "ADMIN");
                 authConfig.requestMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN");
             })
             .formLogin(login -> {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class OptionService {
+public class OptionService implements IFinanceService, IService<Option, CreateNewOptionRequest, UpdateExistingOptionRequest>{
     @Autowired
     private OptionRepository optionRepository;
     @Transactional
@@ -54,7 +54,6 @@ public class OptionService {
         Optional<Option> optionalOption = optionRepository.findById(id);
         return optionalOption.orElseThrow(() -> new IllegalArgumentException("Invalid option Id:" + id));
     }
-
     public long calculateUpValue(long stockPrice, double upRate){
         return (long) (stockPrice * (1 + upRate));
     }
@@ -90,5 +89,4 @@ public class OptionService {
         double bondShare = calculateBondShare(stockPrice, upRate, downRate, StrikePrice, bondPrice, riskFreeInterestValue);
         return stockShare * stockPrice + bondShare * bondPrice;
     }
-
 }
