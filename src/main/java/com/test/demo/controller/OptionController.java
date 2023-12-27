@@ -49,9 +49,9 @@ public class OptionController {
         }
         optionService.update(option, id);
         Option newOption = optionService.findById(id);
-        model.addAttribute("option", newOption);
         OptionModel optionModel = new OptionModel(newOption, optionService);
         Map<String, Object> optionValues = optionModel.calculateAllValues();
+        model.addAttribute("option", newOption);
         model.addAttribute("optionValues", optionValues);
         return "option/option_success";
     }

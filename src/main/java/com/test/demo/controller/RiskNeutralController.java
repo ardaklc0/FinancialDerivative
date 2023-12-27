@@ -49,12 +49,10 @@ public class RiskNeutralController {
         }
         riskNeutralService.update(riskNeutral, id);
         RiskNeutral newRiskNeutral = riskNeutralService.findById(id);
-        model.addAttribute("riskNeutral", newRiskNeutral);
         RiskNeutralModel riskNeutralModel = new RiskNeutralModel(newRiskNeutral, riskNeutralService);
         Map<String, Object> riskNeutralValues = riskNeutralModel.calculateAllValues();
+        model.addAttribute("riskNeutral", newRiskNeutral);
         model.addAttribute("riskNeutralValues", riskNeutralValues);
         return "risk_neutral/risk_neutral_success";
     }
 }
-
-//TODO 01: Create business of risk-neutral
