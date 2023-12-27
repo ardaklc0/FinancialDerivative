@@ -37,9 +37,9 @@ public class SecurityConfiguration {
                 authConfig.requestMatchers(HttpMethod.GET, "/index", "/register", "/login", "/error", "/login-error", "/logout", "/css/**").permitAll();
                 authConfig.requestMatchers(HttpMethod.POST,"/save").permitAll();
                 authConfig.requestMatchers(HttpMethod.GET, "/user/**", "/role/**", "/option/**", "/risk-neutral/**").hasAnyRole("USER", "ADMIN");
-                authConfig.requestMatchers(HttpMethod.POST, "/user/**", "/role/**", "/option/**", "/risk-neutral/**").hasAnyRole("USER", "ADMIN");
+                authConfig.requestMatchers(HttpMethod.POST,"/user/**", "/role/**", "/option/**", "/risk-neutral/**").hasAnyRole("USER", "ADMIN");
                 authConfig.requestMatchers(HttpMethod.GET, "/admin/**").hasRole("ADMIN");
-                authConfig.requestMatchers(HttpMethod.POST, "/admin/**").hasRole("ADMIN");
+                authConfig.requestMatchers(HttpMethod.POST,"/admin/**").hasRole("ADMIN");
             })
             .formLogin(login -> {
                         login.loginPage("/login");
