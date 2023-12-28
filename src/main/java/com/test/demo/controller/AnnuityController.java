@@ -35,6 +35,7 @@ public class AnnuityController {
         AnnuityModel annuityModel = new AnnuityModel(newAnnuity, annuityService);
         Map<String, Object> annuityValues = annuityModel.calculateAllValues();
         model.addAttribute("annuityValues", annuityValues);
+        model.addAttribute("annuity", newAnnuity);
         return "annuity/annuity_success";
     }
     @GetMapping("/update-annuity/{id}")
