@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<head>
+    <meta charset="UTF-8">
+    <title>Option Update Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h2 class="p-1">FinDer</h2>
+</header>
+<div class="container d-flex justify-content-center align-items-center flex-grow-1">
+    <div class="card text-center p-3" style="background-color:#fffefc;" id="annuity-card">
+        <h2 class="card-title p-3">Update Option</h2>
+        <form action="#" th:action="@{/annuity/update-annuity/{id}(id=${annuity.id})}" th:object="${annuity}" method="post">
+            <div class="input-group p-2">
+                <label for="rateOfInterest" class="p-1">Rate of Interest</label>
+                <input class="input-group-text inputfield" type="text" id="rateOfInterest" name="rateOfInterest" th:field="*{rateOfInterest}" autofocus="autofocus"> <br>
+                <label for="paymentPeriod" class="p-1">Payment Period</label>
+                <input class="input-group-text inputfield" type="text" id="paymentPeriod" name="paymentPeriod" th:field="*{paymentPeriod}" autofocus="autofocus"> <br>
+                <label for="totalPaymentYear" class="p-1">Total Payment Year</label>
+                <input class="input-group-text inputfield" type="text" id="totalPaymentYear" name="totalPaymentYear" th:field="*{totalPaymentYear}" autofocus="autofocus"> <br>
+                <label for="borrowedLoan" class="p-1">Borrowed Loan</label>
+                <input class="input-group-text inputfield" type="text" id="borrowedLoan" name="borrowedLoan" th:field="*{borrowedLoan}" autofocus="autofocus"> <br>
+                <label for="wannaSave" class="p-1">Saved Money</label>
+                <input class="input-group-text inputfield" type="text" id="wannaSave" name="wannaSave" th:field="*{wannaSave}" autofocus="autofocus"> <br>
+            </div>
+            <button class="btn btn-danger" type="submit">Update</button>
+        </form>
+    </div>
+</div>
+<footer>
+    Arda Kilic 2023
+</footer>
+</body>
+</html>

@@ -11,7 +11,7 @@
     <h2 class="p-1">FinDer</h2>
 </header>
 <div class="container d-flex justify-content-center align-items-center flex-grow-1">
-    <div class="card text-center p-3" style="background-color:#fffefc;" id="register-card">
+    <div class="card text-center p-3" style="background-color:#fffefc;" id="option-card">
         <h2 class="card-title p-3">Update Option</h2>
         <form action="#" th:action="@{/option/update-option/{id}(id=${option.id})}" th:object="${option}" method="post">
             <div class="input-group p-2">

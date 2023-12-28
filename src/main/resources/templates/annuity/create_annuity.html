@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Create Annuity Page</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h2 class="p-1">FinDer</h2>
+</header>
+<div class="container d-flex justify-content-center align-items-center flex-grow-1">
+    <div class="card text-center p-3" style="background-color:#fffefc;" id="annuity-card">
+        <h2 class="card-title p-3">Create an Annuity</h2>
+        <form th:action="@{/annuity/create-annuity}" method="post">
+            <input class="input-group-text inputfield" type="text" id="rateOfInterest" name="rateOfInterest" autofocus="autofocus" placeholder="Rate of Interest: r"> <br>
+            <input class="input-group-text inputfield" type="text" id="paymentPeriod" name="paymentPeriod" autofocus="autofocus" placeholder="Payment Period: k"> <br>
+            <input class="input-group-text inputfield" type="text" id="totalPaymentYear" name="totalPaymentYear" autofocus="autofocus" placeholder="Total Payment Year: y"> <br>
+            <input class="input-group-text inputfield" type="text" id="borrowedLoan" name="borrowedLoan" autofocus="autofocus" placeholder="Borrowed Loan (optional)"> <br>
+            <input class="input-group-text inputfield" type="text" id="wannaSave" name="wannaSave" autofocus="autofocus" placeholder="To Be Saved (optional)"> <br>
+            <button class="btn btn-danger" type="submit">Create</button>
+        </form>
+    </div>
+</div>
+<footer>
+    Arda Kilic 2023
+</footer>
+</body>
+</html>
