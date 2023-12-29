@@ -55,4 +55,14 @@ public class RiskNeutralController {
         model.addAttribute("riskNeutralValues", riskNeutralValues);
         return "risk_neutral/risk_neutral_success";
     }
+    @PostMapping("/delete-risk-neutral/{id}")
+    public String deleteRiskNeutral(@PathVariable("id") long id) {
+        riskNeutralService.delete(id);
+        return "risk_neutral/show_all_risk_neutrals";
+    }
+    @GetMapping("/risk-neutral-list")
+    public String riskNeutralList(Model model){
+        model.addAttribute("riskNeutrals", riskNeutralService.findAll());
+        return "risk_neutral/show_all_risk_neutrals";
+    }
 }

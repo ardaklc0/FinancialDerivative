@@ -15,6 +15,6 @@ public class AdminController {
     @RequestMapping("/admin-home")
     public String admin(Model model, Authentication authentication){
         model.addAttribute("admin", authentication.getPrincipal());
-        return "admin";
+        return "admin/admin";
     }
 }

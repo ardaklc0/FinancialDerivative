@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Create Risk Neutral Page</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+</head>
+<body>
+<header>
+    <h2 class="p-1">FinDer</h2>
+</header>
+<div class="container d-flex justify-content-center align-items-center flex-grow-1">
+    <div class="card text-center p-3" style="background-color:#fffefc;" id="login-card">
+        <h2 class="card-title p-3">Created Risk Neutral</h2>
+        <table class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Is Call</th>
+                    <th scope="col">Strike Price</th>
+                    <th scope="col">Risk Free Interest Value</th>
+                    <th scope="col">Up Rate</th>
+                    <th scope="col">Down Rate</th>
+                    <th scope="col">Exercise Time</th>
+                    <th scope="col">Stock Price</th>
+                    <th scope="col">Probability of Up</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="riskNeutral: ${riskNeutrals}">
+                    <td th:text="${riskNeutral.isCall}"></td>
+                    <td th:text="${riskNeutral.strikePrice}"></td>
+                    <td th:text="${riskNeutral.riskFreeInterestValue}"></td>
+                    <td th:text="${riskNeutral.upRate}"></td>
+                    <td th:text="${riskNeutral.downRate}"></td>
+                    <td th:text="${riskNeutral.exerciseTime}"></td>
+                    <td th:text="${riskNeutral.stockPrice}"></td>
+                    <td th:text="${riskNeutral.probabilityOfUp}"></td>
+                    <td>
+                        <form th:action="@{/risk-neutral/update-risk-neutral/{id}(id=${riskNeutral.id})}" th:object="${riskNeutral}" method="get">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-danger" th:onclick="'showToast('+${riskNeutral.id}+')'" th:id="|deleteButton${riskNeutral.id}|">Delete</button>
+                    </td>
+                    <div aria-live="polite" aria-atomic="true" class="bg-body-secondary position-relative bd-example-toasts rounded-3" >
+                        <div class="toast-container p-3" id="toastPlacement">
+                            <div class="toast" th:id="|deleteToast${riskNeutral.id}|">
+                                <div class="toast-header">
+                                    <strong class="me-auto">Delete Risk Neutral</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">Are you sure you want to delete the risk neutral?</div>
+                                <form th:action="@{/risk-neutral/delete-risk-neutral/{id}(id=${riskNeutral.id})}" th:object="${riskNeutral}" method="post">
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer>
+    Arda Kilic 2023
+</footer>
+</body>
+</html>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script async src="https://tikzjax.com/v1/tikzjax.js"></script>
+<script>
+    function showToast(id) {
+        const deleteButton = document.getElementById(`deleteButton${id}`);
+        const toast = new bootstrap.Toast(document.getElementById(`deleteToast${id}`));
+        toast.show();
+    }
+</script>

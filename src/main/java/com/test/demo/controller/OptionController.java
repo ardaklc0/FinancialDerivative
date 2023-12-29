@@ -55,4 +55,14 @@ public class OptionController {
         model.addAttribute("optionValues", optionValues);
         return "option/option_success";
     }
+    @PostMapping("/delete-option/{id}")
+    public String deleteOption(@PathVariable("id") long id) {
+        optionService.delete(id);
+        return "option/show_all_options";
+    }
+    @GetMapping("/option-list")
+    public String optionList(Model model){
+        model.addAttribute("options", optionService.findAll());
+        return "option/show_all_options";
+    }
 }
