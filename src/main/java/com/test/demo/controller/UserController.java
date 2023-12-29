@@ -17,33 +17,33 @@ public class UserController {
     @RequestMapping("/user-home")
     public String user(Model model, Authentication authentication){
         model.addAttribute("user", authentication.getPrincipal());
-        return "user";
+        return "user/user";
     }
     @GetMapping("/edit-user/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
-        return "update_user";
+        return "user/update_user";
     }
     @PostMapping("/update-user/{id}")
     public String updateUser(@PathVariable("id") long id, UpdateExistingUserRequest user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             user.setId(id);
-            return "update_user";
+            return "user/update_user";
         }
         userService.update(user, id);
         User newUser = userService.findById(id);
         model.addAttribute("user", newUser);
-        return "index";
+        return "main/index";
     }
     @PostMapping("/delete-user/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         userService.delete(id);
-        return "login";
+        return "main/login";
     }
     @GetMapping("/user-list")
     public String userList(Model model){
         model.addAttribute("users", userService.findAll());
-        return "show_all_users";
+        return "user/show_all_users";
     }
 }

@@ -17,31 +17,31 @@ public class HomeController {
     private UserService userService;
     @RequestMapping("/login")
     public String login(){
-        return "login";
+        return "main/login";
     }
     @RequestMapping("/login-error")
     public String loginError(Model model) {
-        return "login-error";
+        return "main/login-error";
     }
     @RequestMapping("/index")
     public String home(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user", authentication.getPrincipal());
-        return "index";
+        return "main/index";
     }
     @RequestMapping("/register")
     public String showRegisterForm(Model model){
         model.addAttribute("user", new CreateNewUserRequest());
-        return "register_form";
+        return "main/register_form";
     }
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String submitForm(@ModelAttribute("user") CreateNewUserRequest user, Model model){
         if (userService.findByUsername(user.getUsername()) != null){
             model.addAttribute("user", userService.findByUsername(user.getUsername()));
-            return "register_failure";
+            return "main/register_failure";
         } else {
             userService.save(user);
-            return "register_success";
+            return "main/register_success";
         }
     }
 }

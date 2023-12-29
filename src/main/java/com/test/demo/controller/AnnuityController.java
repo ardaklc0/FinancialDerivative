@@ -58,4 +58,14 @@ public class AnnuityController {
         model.addAttribute("annuityValues", annuityValues);
         return "annuity/annuity_success";
     }
+    @PostMapping("/delete-annuity/{id}")
+    public String deleteAnnuity(@PathVariable("id") long id) {
+        annuityService.delete(id);
+        return "annuity/show_all_annuities";
+    }
+    @GetMapping("/annuity-list")
+    public String annuityList(Model model){
+        model.addAttribute("annuities", annuityService.findAll());
+        return "annuity/show_all_annuities";
+    }
 }
