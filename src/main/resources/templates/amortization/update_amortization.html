@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Option Update Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 <body>
-
+<header>
+    <h2 class="p-1">FinDer</h2>
+</header>
+<div class="container d-flex justify-content-center align-items-center flex-grow-1">
+    <div class="card text-center p-3" style="background-color:#fffefc;" id="annuity-card">
+        <h2 class="card-title p-3">Update Option</h2>
+        <form action="#" th:action="@{/amortization/update-amortization/{id}(id=${amortization.id})}" th:object="${amortization}" method="post">
+            <div class="input-group p-2">
+                <label for="couponRate" class="p-1">Coupon Rate</label>
+                <input class="input-group-text inputfield" type="text" id="couponRate" name="couponRate" th:field="*{couponRate}" autofocus="autofocus"> <br>
+                <label for="yieldRate" class="p-1">Yield Rate</label>
+                <input class="input-group-text inputfield" type="text" id="yieldRate" name="yieldRate" th:field="*{yieldRate}" autofocus="autofocus"> <br>
+                <label for="faceValue" class="p-1">Face Value</label>
+                <input class="input-group-text inputfield" type="text" id="faceValue" name="faceValue" th:field="*{faceValue}" autofocus="autofocus"> <br>
+                <label for="paymentPeriod" class="p-1">Payment Period</label>
+                <input class="input-group-text inputfield" type="text" id="paymentPeriod" name="paymentPeriod" th:field="*{paymentPeriod}" autofocus="autofocus"> <br>
+                <label for="totalPaymentYear" class="p-1">Total Payment Year</label>
+                <input class="input-group-text inputfield" type="text" id="totalPaymentYear" name="totalPaymentYear" th:field="*{totalPaymentYear}" autofocus="autofocus"> <br>
+                <label for="couponValue" class="p-1">Coupon Value</label>
+                <input class="input-group-text inputfield" type="text" id="couponValue" name="couponValue" th:field="*{couponValue}" autofocus="autofocus"> <br>
+            </div>
+            <button class="btn btn-danger" type="submit">Update</button>
+        </form>
+    </div>
+</div>
+<footer>
+    Arda Kilic 2023
+</footer>
 </body>
 </html>

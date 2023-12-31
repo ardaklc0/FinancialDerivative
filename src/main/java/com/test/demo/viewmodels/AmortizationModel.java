@@ -11,6 +11,15 @@ public class AmortizationModel extends IModel<Amortization, AmortizationService>
     }
     @Override
     public Map<String, Object> calculateAllValues(){
-        return Map.of();
+        return Map.of(
+            "amortizationSchedule", service.calculateAmortizationSchedule(
+                model.getFaceValue(),
+                model.getCouponRate(),
+                model.getPaymentPeriod(),
+                model.getTotalPaymentYear(),
+                model.getCouponValue(),
+                model.getYieldRate()
+            )
+        );
     }
 }

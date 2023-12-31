@@ -6,12 +6,13 @@ import com.test.demo.model.Amortization;
 import com.test.demo.repository.AmortizationRepository;
 import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+@Service
 public class AmortizationService implements IService<Amortization, CreateNewAmortizationRequest, UpdateExistingAmortizationRequest>{
     @Autowired
     private AmortizationRepository amortizationRepository;
@@ -65,9 +66,9 @@ public class AmortizationService implements IService<Amortization, CreateNewAmor
         return faceValue * ratePerPeriod;
     }
     public double annuityPresentFactor(double couponRate, int paymentPeriod, double totalPaymentYear){
-        double yieldRate = ratePerPeriod(couponRate, paymentPeriod);
+        double ratePerPeriod = ratePerPeriod(couponRate, paymentPeriod);
         double numberOfPaymentPeriods = numberOfPaymentPeriods(paymentPeriod, totalPaymentYear);
-        return (1 - Math.pow((1 + yieldRate), -numberOfPaymentPeriods)) / (yieldRate);
+        return (1 - Math.pow((1 + ratePerPeriod), -numberOfPaymentPeriods)) / (ratePerPeriod);
     }
     public double bondPrice(double faceValue, double couponRate, int paymentPeriod, double totalPaymentYear, double couponValue){
         double couponPayment = couponPayment(faceValue, couponRate, paymentPeriod);
@@ -80,8 +81,7 @@ public class AmortizationService implements IService<Amortization, CreateNewAmor
         double bondPrice = bondPrice(faceValue, couponRate, paymentPeriod, totalPaymentYear, couponValue);
         return bondPrice * yieldRate;
     }
-    public double amortizedAmount(double faceValue, double couponRate, int paymentPeriod, double totalPaymentYear, double couponValue, double yieldRate){
-        double bondPrice = bondPrice(faceValue, couponRate, paymentPeriod, totalPaymentYear, couponValue);
+    public double amortizedAmount(double bondPrice, double faceValue, double couponRate, int paymentPeriod, double totalPaymentYear, double couponValue, double yieldRate){
         double effectiveInterestEarned = effectiveInterestEarned(faceValue, couponRate, paymentPeriod, totalPaymentYear, couponValue, yieldRate);
         return bondPrice - effectiveInterestEarned;
     }
@@ -89,24 +89,18 @@ public class AmortizationService implements IService<Amortization, CreateNewAmor
     public Map<String, Object> calculateAmortizationSchedule(double faceValue, double couponRate, int paymentPeriod, double totalPaymentYear, double couponValue, double yieldRate){
         double totalPaymentPeriod = numberOfPaymentPeriods(paymentPeriod, totalPaymentYear);
         Map<String, Object> amortizationSchedule = new HashMap<>();
-        double couponPayment = couponPayment(faceValue, couponRate, paymentPeriod);
-        double annuityPresentFactor = annuityPresentFactor(couponRate, paymentPeriod, totalPaymentYear);
-        double ratePerPeriod = ratePerPeriod(couponRate, paymentPeriod);
-        double numberOfPaymentPeriods = numberOfPaymentPeriods(paymentPeriod, totalPaymentYear);
         double bondPrice = bondPrice(faceValue, couponRate, paymentPeriod, totalPaymentYear, couponValue);
         double effectiveInterestEarned = effectiveInterestEarned(faceValue, couponRate, paymentPeriod, totalPaymentYear, couponValue, yieldRate);
-        double amortizedAmount = amortizedAmount(faceValue, couponRate, paymentPeriod, totalPaymentYear, couponValue, yieldRate);
+        double amortizedAmount = amortizedAmount(bondPrice, faceValue, couponRate, paymentPeriod, totalPaymentYear, couponValue, yieldRate);
         for (int i = 0; i < totalPaymentPeriod + 1; i++) {
+            Map<String, Object> amortizationScheduleRow = new HashMap<>();
+            amortizationScheduleRow.put("bondPrice", bondPrice);
+            amortizationScheduleRow.put("effectiveInterestEarned", effectiveInterestEarned);
+            amortizationScheduleRow.put("amortizedAmount", amortizedAmount);
+            amortizationSchedule.put("row" + i, amortizationScheduleRow);
             bondPrice = bondPrice - amortizedAmount;
             effectiveInterestEarned = bondPrice * yieldRate;
             amortizedAmount = bondPrice - effectiveInterestEarned;
-            amortizationSchedule.put("couponPayment", couponPayment);
-            amortizationSchedule.put("annuityPresentFactor", annuityPresentFactor);
-            amortizationSchedule.put("ratePerPeriod", ratePerPeriod);
-            amortizationSchedule.put("numberOfPaymentPeriods", numberOfPaymentPeriods);
-            amortizationSchedule.put("bondPrice", bondPrice);
-            amortizationSchedule.put("effectiveInterestEarned", effectiveInterestEarned);
-            amortizationSchedule.put("amortizedAmount", amortizedAmount);
         }
         return amortizationSchedule;
     }

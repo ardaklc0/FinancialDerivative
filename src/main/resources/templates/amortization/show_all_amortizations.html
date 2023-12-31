@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Create Amortization Page</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h2 class="p-1">FinDer</h2>
+</header>
+<div class="container d-flex justify-content-center align-items-center flex-grow-1">
+    <div class="card text-center p-3" style="background-color:#fffefc;" id="login-card">
+        <h2 class="card-title p-3">Created Amortization</h2>
+        <table class="table table-striped table-dark">
+            <thead>
+            <tr>
+                <th scope="col">Coupon Rate: r</th>
+                <th scope="col">Yield Rate: i</th>
+                <th scope="col">Face Value: F</th>
+                <th scope="col">Payment Period: k</th>
+                <th scope="col">Total Payment Year: y</th>
+                <th scope="col">Coupon Value: C</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="amortization: ${amortizations}">
+                <td th:text="${amortization.couponRate}"></td>
+                <td th:text="${amortization.yieldRate}"></td>
+                <td th:text="${amortization.faceValue}"></td>
+                <td th:text="${amortization.paymentPeriod}"></td>
+                <td th:text="${amortization.totalPaymentYear}"></td>
+                <td th:text="${amortization.couponValue}"></td>
+                <td>
+                    <form th:action="@{/amortization/update-amortization/{id}(id=${amortization.id})}" th:object="${amortization}" method="get">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-danger" th:onclick="'showToast('+${amortization.id}+')'" th:id="|deleteButton${amortization.id}|">Delete</button>
+                </td>
+                <div aria-live="polite" aria-atomic="true" class="bg-body-secondary position-relative bd-example-toasts rounded-3" >
+                    <div class="toast-container p-3" id="toastPlacement">
+                        <div class="toast" th:id="|deleteToast${amortization.id}|">
+                            <div class="toast-header">
+                                <strong class="me-auto">Delete Amortization</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">Are you sure you want to delete the annuity?</div>
+                            <form th:action="@{/amortization/delete-amortization/{id}(id=${amortization.id})}" th:object="${amortization}" method="post">
+                                <input type="submit" class="btn btn-danger" value="Delete">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer>
+    Arda Kilic 2023
+</footer>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+    function showToast(id) {
+        const deleteButton = document.getElementById(`deleteButton${id}`);
+        const toast = new bootstrap.Toast(document.getElementById(`deleteToast${id}`));
+        toast.show();
+    }
+</script>
