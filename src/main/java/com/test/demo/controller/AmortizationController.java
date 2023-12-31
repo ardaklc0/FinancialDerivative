@@ -2,6 +2,7 @@ package com.test.demo.controller;
 
 import com.test.demo.dto.request.amortization.CreateNewAmortizationRequest;
 import com.test.demo.dto.request.amortization.UpdateExistingAmortizationRequest;
+import com.test.demo.viewmodels.AmortizationModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -34,16 +35,10 @@ public class AmortizationController {
     @PostMapping("/create-amortization")
     public String createAmortization(CreateNewAmortizationRequest amortization, Model model){
         Amortization newAmortization = amortizationService.save(amortization);
-        Map<String, Object> bondAmortizationSchedule = amortizationService.calculateAmortizationSchedule(
-            newAmortization.getFaceValue(),
-            newAmortization.getCouponRate(),
-            newAmortization.getPaymentPeriod(),
-            newAmortization.getTotalPaymentYear(),
-            newAmortization.getCouponValue(),
-            newAmortization.getYieldRate()
-        );
+        AmortizationModel amortizationModel = new AmortizationModel(newAmortization, amortizationService);
+        Map<String, Object> amortizationValues = amortizationModel.calculateAllValues();
+        model.addAttribute("amortizationValues", amortizationValues);
         model.addAttribute("amortization", newAmortization);
-        model.addAttribute("bondAmortizationSchedule", bondAmortizationSchedule);
         return "amortization/amortization_success";
     }
     @GetMapping("/update-amortization/{id}")
@@ -60,16 +55,10 @@ public class AmortizationController {
         }
         amortizationService.update(amortization, id);
         Amortization newAmortization = amortizationService.findById(id);
-        Map<String, Object> bondAmortizationSchedule = amortizationService.calculateAmortizationSchedule(
-                newAmortization.getFaceValue(),
-                newAmortization.getCouponRate(),
-                newAmortization.getPaymentPeriod(),
-                newAmortization.getTotalPaymentYear(),
-                newAmortization.getCouponValue(),
-                newAmortization.getYieldRate()
-        );
+        AmortizationModel amortizationModel = new AmortizationModel(newAmortization, amortizationService);
+        Map<String, Object> amortizationValues = amortizationModel.calculateAllValues();
         model.addAttribute("amortization", newAmortization);
-        model.addAttribute("bondAmortizationSchedule", bondAmortizationSchedule);
+        model.addAttribute("amortizationValues", amortizationValues);
         return "amortization/amortization_success";
     }
     @PostMapping("/delete-amortization/{id}")
@@ -82,5 +71,5 @@ public class AmortizationController {
         model.addAttribute("amortizations", amortizationService.findAll());
         return "amortization/show_all_amortizations";
     }
-
+    //TODO 01: Corresponding "Amortization" htmls should be created!
 }
