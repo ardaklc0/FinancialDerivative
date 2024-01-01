@@ -8,10 +8,10 @@ import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.*;
+
 @Service
 public class AmortizationService implements IService<Amortization, CreateNewAmortizationRequest, UpdateExistingAmortizationRequest>{
     @Autowired
@@ -91,7 +91,9 @@ public class AmortizationService implements IService<Amortization, CreateNewAmor
         return bondPrice - effectiveInterestEarned;
     }
     public Map<String, Object> calculateAmortizationSchedule(double faceValue, double couponRate, int paymentPeriod, double totalPaymentYear, double couponValue, double yieldRate){
-        Map<String, Object> amortizationSchedule = new HashMap<>();
+        Map<String, Object> amortizationSchedule = new LinkedHashMap<>();
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        DecimalFormat df = new DecimalFormat("#.##", symbols);
         double totalPaymentPeriod = numberOfPaymentPeriods(paymentPeriod, totalPaymentYear);
         double yieldRatePerPeriod = someRatePerPeriod(yieldRate, paymentPeriod);
         double couponPayment = couponPayment(faceValue, couponRate, paymentPeriod);
@@ -100,11 +102,11 @@ public class AmortizationService implements IService<Amortization, CreateNewAmor
         double amortizedAmount = amortizedAmount(couponPayment, effectiveInterestEarned);
         for (int i = 0; i < totalPaymentPeriod; i++) {
             bondPrice = bondPrice - amortizedAmount;
-            Map<String, Object> amortizationScheduleRow = new HashMap<>();
+            Map<String, Object> amortizationScheduleRow = new LinkedHashMap<>();
             amortizationScheduleRow.put("rowId", i + 1);
-            amortizationScheduleRow.put("bondPrice", bondPrice);
-            amortizationScheduleRow.put("effectiveInterestEarned", effectiveInterestEarned);
-            amortizationScheduleRow.put("amortizedAmount", amortizedAmount);
+            amortizationScheduleRow.put("bondPrice", Double.parseDouble(df.format(bondPrice)));
+            amortizationScheduleRow.put("effectiveInterestEarned", Double.parseDouble(df.format(effectiveInterestEarned)));
+            amortizationScheduleRow.put("amortizedAmount", Double.parseDouble(df.format(amortizedAmount)));
             amortizationSchedule.put("row" + i, amortizationScheduleRow);
             effectiveInterestEarned = bondPrice * yieldRatePerPeriod;
             amortizedAmount = couponPayment - effectiveInterestEarned;

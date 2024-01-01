@@ -16,27 +16,27 @@
         <table class="table table-striped table-dark">
             <thead>
             <tr>
-                <th scope="col">Period</th>
-                <th scope="col">Coupon Payment</th>
-                <th scope="col">Effective Interest Earned</th>
-                <th scope="col">Amortized Amount</th>
-                <th scope="col">Book Value</th>
+                <th scope="col" th:text="|\(\large\text{Period}\)|"></th>
+                <th scope="col" th:text="|\(\large\text{Coupon Payment}\)|"></th>
+                <th scope="col" th:text="|\(\large\text{Effective Interest Earned}\)|"></th>
+                <th scope="col" th:text="|\(\large\text{Amortized Amount}\)|"></th>
+                <th scope="col" th:text="|\(\large\text{Book Value}\)|"></th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>0</td>
+                <td th:text="|\(\large 0 \)|"></td>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td th:text="${amortizationValues.bondPrice}"></td>
+                <td th:text="|\(\large${amortizationValues.bondPrice}\)|"></td>
             </tr>
-            <tr th:each="amortizationValue: ${amortizationValues.amortizationSchedule}">
-                <td th:text="${amortizationValue}"></td>
-                <td th:text="${amortizationValues.couponPayment}"></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr th:each="entry: ${amortizationValues['amortizationSchedule'].entrySet()}">
+                <td th:text="|\(\large${entry.value['rowId']}\)|"></td>
+                <td th:text="|\(\large${amortizationValues.couponPayment}\)|"></td>
+                <td th:text="|\(\large${entry.value['effectiveInterestEarned']}\)|"></td>
+                <td th:text="|\(\large${entry.value['amortizedAmount']}\)|"></td>
+                <td th:text="|\(\large${entry.value['bondPrice']}\)|"></td>
             </tr>
             </tbody>
         </table>

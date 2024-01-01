@@ -3,6 +3,9 @@ package com.test.demo.viewmodels;
 import com.test.demo.model.Amortization;
 import com.test.demo.services.AmortizationService;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 import java.util.Map;
 
 public class AmortizationModel extends IModel<Amortization, AmortizationService>{
@@ -11,6 +14,8 @@ public class AmortizationModel extends IModel<Amortization, AmortizationService>
     }
     @Override
     public Map<String, Object> calculateAllValues(){
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        DecimalFormat df = new DecimalFormat("#.##", symbols);
         return Map.of(
             "amortizationSchedule", service.calculateAmortizationSchedule(
                 model.getFaceValue(),
@@ -25,14 +30,16 @@ public class AmortizationModel extends IModel<Amortization, AmortizationService>
                 model.getCouponRate(),
                 model.getPaymentPeriod()
             ),
-            "bondPrice", service.bondPrice(
-                model.getFaceValue(),
-                model.getYieldRate(),
-                model.getCouponRate(),
-                model.getPaymentPeriod(),
-                model.getTotalPaymentYear(),
-                model.getCouponValue()
-            )
+            "bondPrice", Double.parseDouble(df.format(
+                service.bondPrice(
+                    model.getFaceValue(),
+                    model.getYieldRate(),
+                    model.getCouponRate(),
+                    model.getPaymentPeriod(),
+                    model.getTotalPaymentYear(),
+                    model.getCouponValue()
+                )
+            ))
         );
     }
 }
