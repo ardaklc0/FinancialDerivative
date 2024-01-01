@@ -19,6 +19,19 @@ public class AmortizationModel extends IModel<Amortization, AmortizationService>
                 model.getTotalPaymentYear(),
                 model.getCouponValue(),
                 model.getYieldRate()
+            ),
+            "couponPayment", service.couponPayment(
+                model.getFaceValue(),
+                model.getCouponRate(),
+                model.getPaymentPeriod()
+            ),
+            "bondPrice", service.bondPrice(
+                model.getFaceValue(),
+                model.getYieldRate(),
+                model.getCouponRate(),
+                model.getPaymentPeriod(),
+                model.getTotalPaymentYear(),
+                model.getCouponValue()
             )
         );
     }
