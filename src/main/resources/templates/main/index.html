@@ -12,15 +12,103 @@
         </header>
         <main>
             <div class="container">
-                <h2 style="color:#003251;">Home Page!</h2>
-                <div th:if="${user != null}">
-                    <p th:text="'Hello ' + ${user.username}"></p>
-                    <form th:action="@{/logout}" method="post">
-                        <button class="btn btn-danger" type="submit">Log out</button>
-                    </form>
+                <div class="row p-1">
+                    <h2 style="color:#003251;">Home Page!</h2>
+                    <div th:if="${user != null}">
+                        <p th:text="'Hello ' + ${user.username}"></p>
+                        <form th:action="@{/logout}" method="post">
+                            <button class="btn btn-danger" type="submit">Log out</button>
+                        </form>
+                    </div>
+                    <div th:unless="${user != null}">
+                        <p>User information not available.</p>
+                    </div>
                 </div>
-                <div th:unless="${user != null}">
-                    <p>User information not available.</p>
+                <div class="row p-1">
+                    <div class="card col-sm m-1" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Create Amortization</h5>
+                            <p class="card-text">Using this link, one can create amortization schedule for the given bond.</p>
+                            <form class="mt-auto" th:action="@{amortization/create-amortization}" method="get">
+                                <button type="submit" class="card-link btn btn-danger">Click Here!</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card col-sm m-1" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Show All Amortizations</h5>
+                            <p class="card-text">Using this link, one can look at all amortizations that created before. If wanted, amortization can be updated or deleted.</p>
+                            <form class="mt-auto" th:action="@{amortization/amortization-list}" method="get">
+                                <button type="submit" class="card-link btn btn-danger">Click Here!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="card col-sm m-1" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Create Annuity</h5>
+                            <p class="card-text">Using this link, one can calculate annuity. If wanted, borrowed or money want to be saved can be calculated.</p>
+                            <form class="mt-auto" th:action="@{annuity/create-annuity}" method="get">
+                                <button type="submit" class="card-link btn btn-danger">Click Here!</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card col-sm m-1" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Show All Annuities</h5>
+                            <p class="card-text">Using this link, one can look at all annuities that created before. If wanted, annuity can be updated or deleted.</p>
+                            <form class="mt-auto" th:action="@{annuity/annuity-list}" method="get">
+                                <button type="submit" class="card-link btn btn-danger">Click Here!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="card col-sm m-1" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Create Option</h5>
+                            <p class="card-text">Using this link, one can calculate call option.</p>
+                            <form class="mt-auto" th:action="@{option/create-option}" method="get">
+                                <button type="submit" class="card-link btn btn-danger">Click Here!</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card col-sm m-1" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Show All Options</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Using this link, one can look at all options that created before. If wanted, option can be updated or deleted.</p>
+                            <form class="mt-auto" th:action="@{option/option-list}" method="get">
+                                <button type="submit" class="card-link btn btn-danger">Click Here!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="card col-sm m-1" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Create Risk Neutral</h5>
+                            <p class="card-text">Using this link, one can calculate call option using risk neutral pricing.</p>
+                            <form class="mt-auto" th:action="@{risk-neutral/create-risk-neutral}" method="get">
+                                <button type="submit" class="card-link btn btn-danger">Click Here!</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card col-sm m-1" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Show All Options</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <p class="card-text">Using this link, one can look at all options that created using risk neutral pricing before. If wanted, option can be updated or deleted.</p>
+                            <form class="mt-auto" th:action="@{risk-neutral/risk-neutral-list}" method="get">
+                                <button type="submit" class="card-link btn btn-danger">Click Here!</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
